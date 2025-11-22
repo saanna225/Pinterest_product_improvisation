@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinterest Interactive Demo Concept</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .slide-enter {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Slide Container -->
+        <div id="slideContainer" class="bg-white rounded-3xl shadow-2xl p-12 min-h-[600px] flex flex-col justify-between slide-enter">
+            <!-- Slides will be injected here -->
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center mt-6">
+            <button id="prevBtn" class="flex items-center space-x-2 px-6 py-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all text-amber-900 font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <span>Previous</span>
+            </button>
+            
+            <span id="counter" class="text-amber-700 font-medium"></span>
+            
+            <button id="nextBtn" class="flex items-center space-x-2 px-6 py-3 bg-emerald-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all font-medium">
+                <span>Next</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                type: 'intro',
+                title: 'the problem.',
+                subtitle: 'Pinterest has a hidden superpower—but new users never see it',
+                content: 'Most apps reveal value instantly. Pinterest is different: its "aha moment" comes after you save, organize, and return.',
+                image: '📌',
+                footer: 'New users see inspiration... but not why saving matters.'
+            },
+            {
+                type: 'scenario',
+                title: 'scenario 1: you join Pinterest.',
+                image: '📱',
+                content: "It's 2025. Pinterest wants users to feel \"inspired instantly.\"",
+                problem: "But most people don't know how to save, organize, or revisit their ideas."
+            },
+            {
+                type: 'scenario',
+                title: 'scenario 2: you try saving something.',
+                image: '💾',
+                content: 'You tap a Pin. You try to save it.',
+                problem: 'But nothing teaches you where it goes... or why it matters.'
+            },
+            {
+                type: 'insight',
+                title: 'the "aha moment" is missing.',
+                content: 'Unlike TikTok and Duolingo, Pinterest\'s onboarding doesn\'t teach the core loop:',
+                loop: ['save', 'organize', 'revisit', 'personalize'],
+                highlight: 'This creates a delay in value realization—and users drop off.'
+            },
+            {
+                type: 'benchmark',
+                title: 'what works: interactive demos.',
+                cases: [
+                    { app: 'Duolingo', metric: '+18% D1 retention', detail: 'First lesson demo' },
+                    { app: 'Notion', metric: '+23% activation', detail: 'Template walkthrough' },
+                    { app: 'Canva', metric: '+31% first-project', detail: 'Guided design tutorial' }
+                ],
+                source: 'Source: Reforge Product Strategy (2024), Appcues Onboarding Benchmark'
+            },
+            {
+                type: 'solution',
+                title: 'the solution: 45-second interactive demo.',
+                image: '✨',
+                steps: [
+                    'Save your first pin',
+                    'Create your first board',
+                    'See where it lives',
+                    'Get a confetti reward'
+                ],
+                tagline: 'Teach the habit before the browsing begins.'
+            },
+            {
+                type: 'impact',
+                title: 'projected impact.',
+                metrics: [
+                    { label: 'New-user activation', value: '+12–18%', icon: '🎯' },
+                    { label: 'D7 retention', value: '+8–14%', icon: '🔄' },
+                    { label: 'Time to first board', value: '-65%', icon: '⚡' },
+                    { label: 'Feed personalization', value: '+30% faster', icon: '🎨' }
+                ],
+                note: 'Based on industry benchmarks for interactive onboarding'
+            },
+            {
+                type: 'roadmap',
+                title: 'execution roadmap.',
+                phases: [
+                    {
+                        phase: 1,
+                        name: 'Research & Prototype',
+                        weeks: '1–2',
+                        tasks: ['User Interview Synthesis', 'Demo Flow Wireframes', 'Usability Testing (15 participants)']
+                    },
+                    {
+                        phase: 2,
+                        name: 'MVP Development',
+                        weeks: '3–6',
+                        tasks: ['Frontend Overlay Components', 'Save/Board Simulation Logic', 'Event Tracking Schema', 'Experiment Buckets Setup']
+                    },
+                    {
+                        phase: 3,
+                        name: 'A/B Experimentation',
+                        weeks: '7–10',
+                        tasks: ['5% Traffic Rollout', 'Activation Metrics Measurement', 'Feed Personalization Analysis', 'Qualitative Feedback Cycles']
+                    },
+                    {
+                        phase: 4,
+                        name: 'Iterate & Launch',
+                        weeks: '11–14',
+                        tasks: ['Drop-off Fixes & UX Polish', 'Localization for 12 Languages', 'Scale to 100%']
+                    }
+                ]
+            },
+            {
+                type: 'why',
+                title: 'why this matters now.',
+                reasons: [
+                    { icon: '📉', text: 'New-user drop-off is highest in the first session' },
+                    { icon: '🎯', text: 'Competitors are winning on faster time-to-value' },
+                    { icon: '🧠', text: 'Personalization requires user behavior data—sooner is better' },
+                    { icon: '💡', text: 'Interactive onboarding is now a standard expectation' }
+                ]
+            },
+            {
+                type: 'closing',
+                title: 'the result.',
+                image: '🎉',
+                statement: 'A more intuitive, habit-forming Pinterest.',
+                cta: 'Let\'s build the onboarding Pinterest deserves.'
+            }
+        ];
+
+        let currentSlide = 0;
+
+        function renderSlide(slide) {
+            const container = document.getElementById('slideContainer');
+            container.classList.remove('slide-enter');
+            
+            let html = '';
+
+            if (slide.type === 'intro') {
+                html = `
+                    <div class="flex-1 flex flex-col justify-center items-center text-center space-y-8">
+                        <div class="text-8xl mb-4">${slide.image}</div>
+                        <h1 class="text-5xl font-light text-amber-900 mb-4">${slide.title}</h1>
+                        <p class="text-2xl text-amber-800 mb-8 max-w-2xl leading-relaxed">${slide.subtitle}</p>
+                        <p class="text-lg text-amber-700 max-w-xl leading-relaxed">${slide.content}</p>
+                        <div class="mt-8 px-6 py-4 bg-emerald-100 rounded-full">
+                            <p class="text-amber-800 italic">${slide.footer}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.type === 'scenario') {
+                html = `
+                    <div class="flex-1 flex flex-col justify-center space-y-8">
+                        <h2 class="text-4xl font-light text-amber-900">${slide.title}</h2>
+                        <div class="flex items-start space-x-8">
+                            <div class="text-7xl bg-emerald-100 p-8 rounded-3xl">${slide.image}</div>
+                            <div class="flex-1 space-y-4">
+                                <p class="text-xl text-amber-800 leading-relaxed">${slide.content}</p>
+                                <div class="bg-red-50 border-l-4 border-red-300 p-4 rounded-lg">
+                                    <p class="text-lg text-red-900">${slide.problem}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.type === 'insight') {
+                const loopHtml = slide.loop.map((step, idx) => `
+                    ${idx > 0 ? '<span class="text-3xl text-emerald-400">→</span>' : ''}
+                    <div class="bg-emerald-100 px-6 py-4 rounded-full">
+                        <span class="text-lg text-amber-900 font-medium">${step}</span>
+                    </div>
+                `).join('');
+                
+                html = `
+                    <div class="flex-1 flex flex-col justify-center space-y-8">
+                        <h2 class="text-4xl font-light text-amber-900 mb-4">${slide.title}</h2>
+                        <p class="text-xl text-amber-800 mb-6">${slide.content}</p>
+                        <div class="flex items-center justify-center space-x-4 my-8">
+                            ${loopHtml}
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-200 mt-6">
+                            <p class="text-lg text-amber-900 text-center font-medium">${slide.highlight}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.type === 'benchmark') {
+                const casesHtml = slide.cases.map(item => `
+                    <div class="bg-emerald-50 p-6 rounded-2xl border-2 border-emerald-200 flex flex-col items-center justify-center text-center space-y-3 min-h-[240px]">
+                        <h3 class="text-lg font-semibold text-amber-900">${item.app}</h3>
+                        <p class="text-2xl font-bold text-emerald-600 leading-snug">${item.metric}</p>
+                        <p class="text-sm text-amber-700 leading-relaxed">${item.detail}</p>
+                    </div>
+                `).join('');
+                
+                html = `
+                    <div class="flex-1 flex flex-col justify-center space-y-8">
+                        <h2 class="text-4xl font-light text-amber-900 mb-6">${slide.title}</h2>
+                        <div class="grid grid-cols-3 gap-8">
+                            ${casesHtml}
+                        </div>
+                        <p class="text-sm text-amber-600 italic text-center mt-6">${slide.source}</p>
+                    </div>
+                `;
+            } else if (slide.type === 'solution') {
+                const stepsHtml = slide.steps.map((step, idx) => `
+                    <div class="bg-gradient-to-br from-emerald-100 to-teal-100 p-6 rounded-2xl flex items-center space-x-4">
+                        <span class="text-3xl font-bold text-emerald-600">${idx + 1}</span>
+                        <span class="text-lg text-amber-900">${step}</span>
+                    </div>
+                `).join('');
+                
+                html = `
+                    <div class="flex-1 flex flex-col justify-center space-y-8">
+                        <div class="text-center mb-6">
+                            <div class="text-6xl mb-4">${slide.image}</div>
+                            <h2 class="text-4xl font-light text-amber-900">${slide.title}</h2>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
+                            ${stepsHtml}
+                        </div>
+                        <div class="bg-amber-50 px-8 py-4 rounded-full text-center max-w-xl mx-auto mt-6">
+                            <p class="text-xl text-amber-900 italic">${slide.tagline}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.type === 'impact') {
+                const metricsHtml = slide.metrics.map(metric => `
+                    <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 p-8 rounded-3xl text-center space-y-3 border-2 border-emerald-200">
+                        <div class="text-5xl">${metric.icon}</div>
+                        <p class="text-sm text-amber-700 font-medium">${metric.label}</p>
+                        <p class="text-4xl font-bold text-emerald-600">${metric.value}</p>
+                    </div>
+                `).join('');
+                
+                html = `
+                    <div class="flex-1 flex flex-col justify-center space-y-8">
+                        <h2 class="text-4xl font-light text-amber-900 text-center mb-8">${slide.title}</h2>
+                        <div class="grid grid-cols-2 gap-6">
+                            ${metricsHtml}
+                        </div>
+                        <p class="text-sm text-amber-600 italic text-center mt-6">${slide.note}</p>
+                    </div>
+                `;
+            } else if (slide.type === 'roadmap') {
+                const phasesHtml = slide.phases.map(phase => {
+                    const tasksHtml = phase.tasks.map(task => `
+                        <li class="flex items-start">
+                            <span class="text-emerald-500 mr-2">▪</span>
+                            <span>${task}</span>
+                        </li>
+                    `).join('');
+                    
+                    return `
+                        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-5 rounded-2xl border-l-4 border-emerald-400">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-lg font-semibold text-amber-900">
+                                    Phase ${phase.phase}: ${phase.name}
+                                </h3>
+                                <span class="text-sm bg-emerald-200 text-emerald-800 px-3 py-1 rounded-full">
+                                    Weeks ${phase.weeks}
+                                </span>
+                            </div>
+                            <ul class="space-y-1 text-sm text-amber-800">
+                                ${tasksHtml}
+                            </ul>
+                        </div>
+                    `;
+                }).join('');
+                
+                html = `
+                    <div class="flex-1 flex flex-col justify-center space-y-6">
+                        <h2 class="text-4xl font-light text-amber-900 mb-4">${slide.title}</h2>
+                        <div class="space-y-4">
+                            ${phasesHtml}
+                        </div>
+                    </div>
+                `;
+            } else if (slide.type === 'why') {
+                const reasonsHtml = slide.reasons.map(reason => `
+                    <div class="bg-emerald-50 p-6 rounded-2xl border-2 border-emerald-200 flex items-start space-x-4">
+                        <span class="text-4xl">${reason.icon}</span>
+                        <p class="text-base text-amber-900 leading-relaxed">${reason.text}</p>
+                    </div>
+                `).join('');
+                
+                html = `
+                    <div class="flex-1 flex flex-col justify-center space-y-8">
+                        <h2 class="text-4xl font-light text-amber-900 mb-6">${slide.title}</h2>
+                        <div class="grid grid-cols-2 gap-6">
+                            ${reasonsHtml}
+                        </div>
+                    </div>
+                `;
+            } else if (slide.type === 'closing') {
+                html = `
+                    <div class="flex-1 flex flex-col justify-center items-center text-center space-y-8">
+                        <div class="text-8xl mb-6">${slide.image}</div>
+                        <h2 class="text-5xl font-light text-amber-900 mb-4">${slide.title}</h2>
+                        <p class="text-3xl text-emerald-600 font-medium mb-8">${slide.statement}</p>
+                        <div class="bg-gradient-to-r from-emerald-400 to-teal-400 text-white px-12 py-5 rounded-full text-xl font-medium shadow-lg">
+                            ${slide.cta}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Add progress dots
+            const dotsHtml = slides.map((_, idx) => `
+                <button onclick="goToSlide(${idx})" class="h-2 rounded-full transition-all ${
+                    idx === currentSlide ? 'w-8 bg-emerald-500' : 'w-2 bg-emerald-200 hover:bg-emerald-300'
+                }"></button>
+            `).join('');
+
+            html += `
+                <div class="flex justify-center items-center space-x-2 mt-8">
+                    ${dotsHtml}
+                </div>
+            `;
+
+            container.innerHTML = html;
+            setTimeout(() => container.classList.add('slide-enter'), 10);
+        }
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+            document.getElementById('counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+            
+            if (currentSlide === 0) {
+                document.getElementById('prevBtn').style.opacity = '0.5';
+                document.getElementById('prevBtn').style.cursor = 'not-allowed';
+            } else {
+                document.getElementById('prevBtn').style.opacity = '1';
+                document.getElementById('prevBtn').style.cursor = 'pointer';
+            }
+            
+            if (currentSlide === slides.length - 1) {
+                document.getElementById('nextBtn').style.opacity = '0.5';
+                document.getElementById('nextBtn').style.cursor = 'not-allowed';
+            } else {
+                document.getElementById('nextBtn').style.opacity = '1';
+                document.getElementById('nextBtn').style.cursor = 'pointer';
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide(slides[currentSlide]);
+                updateNavigation();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSlide(slides[currentSlide]);
+                updateNavigation();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            renderSlide(slides[currentSlide]);
+            updateNavigation();
+        }
+
+        // Event listeners
+        document.getElementById('nextBtn').addEventListener('click', nextSlide);
+        document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Initialize
+        renderSlide(slides[currentSlide]);
+        updateNavigation();
+    </script>
+</body>
+</html>
